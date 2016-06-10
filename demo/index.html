@@ -16,14 +16,28 @@
   </head>
   <body>
 
-    <div class="vertical-section-container centered">
+    <div class="vertical-section-container centered" id="grid-container">
       <h3>Basic input-grid Demo</h3>
       <demo-snippet>
         <template>
-          <input-grid></input-grid>
+          <input-grid id="thingy">
+          </input-grid>
         </template>
       </demo-snippet>
     </div>
+
+    <script type="text/javascript">
+      (function() {
+        data = [{"label": "name", "type": "text", "value": ""}, {"label": "age", "type": "number", "value": ""}, {"label": "Address", "type": "textarea", "value": ""}, {"label": "Cute", "type": "checkbox", "value": "Yes", "checked": "checked"}, {"label": "Gender", "type": "select", "value": "", "itemz":["Male", "Female"], "placeholder": "Select"}];
+        // document.querySelector('input-grid').setAttribute('inputs', data);
+        
+        // document.querySelector('input-grid').setInputs(data);
+        document.getElementById('grid-container').addEventListener('grid-ready', function() {
+          document.querySelector('input-grid').setInputs(data);
+        });
+
+      })();
+    </script>
 
   </body>
 </html>
