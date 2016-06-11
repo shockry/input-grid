@@ -67,7 +67,7 @@
               </template>
 
               <template is="dom-if" if="[[_checkInput(item.type, 'select')]]">
-                <select>
+                <select value="{{item.value::input}}">
                   <option value=""> {{item.placeholder}} </option>
                   <template is="dom-repeat" items="{{item.itemz}}">
                     <option value="{{item}}"> {{item}} </option>
@@ -77,7 +77,7 @@
             </div>
           </template>
           <div class="divTableCell">
-            <a href="javascript:void(0)" on-click="_addme"> Add </a>
+            <a href="javascript:void(0)" on-click="_addRow"> Add </a>
           </div>
         </div>
 
@@ -88,6 +88,9 @@
                 {{_itemValue(item, input.label)}}
               </div>
             </template>
+            <div class="divTableCell">
+              <a href="javascript:void(0)" on-click="_removeRow"> Remove </a>
+            </div>
           </div>
         </template>
       </div>
@@ -131,21 +134,26 @@
         return itemType === type;
       },
 
-      _addme: function() {
+      _addRow: function() {
         var toPush = {};
         for (var item of this.inputs) {
-          toPush[item.label] = item.value;
+          if (item.type === 'checkbox') {
+            toPush[item.label] = item.checked;
+          } else {
+            toPush[item.label] = item.value;
+          }
         }
         this.push('data', toPush);
         
         for (var i = 0; i < this.inputs.length; i++) {
-          this.set("inputs."+i+".value", "");
+          if (this.inputs[i].type !== 'checkbox')
+            this.set("inputs."+i+".value", "");
         }
+      },
 
-
-        console.log(this.data);
-
-        return false;
+      _removeRow: function(e) {
+        var index = this.data.indexOf(e.model.item);
+        this.splice('data', index, 1);
       },
 
       _itemValue: function(item, property) {
@@ -153,7 +161,6 @@
       },
 
       setInputs: function(inputsArray) {
-        console.log(inputsArray);
         this.inputs = inputsArray;
       }
 
