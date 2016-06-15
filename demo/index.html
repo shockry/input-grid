@@ -20,23 +20,43 @@
       <h3>Basic input-grid Demo</h3>
       <demo-snippet>
         <template>
-          <input-grid id="thingy">
+          <button onclick="logData()"> Get data </button>
+          <input-grid inputs='[{"label": "name", "type": "text", "value": ""}, {"label": "age", "type": "number", "value": ""}, {"label": "Address", "type": "textarea", "value": ""}, {"label": "Cute", "type": "checkbox", "value": "Yes", "checked": true}, {"label": "Gender", "type": "select", "value": "Male", "items":["Male", "Female"], "placeholder": "Select"}]' id="thingy">
           </input-grid>
         </template>
       </demo-snippet>
     </div>
 
     <script type="text/javascript">
-      (function() {
-        data = [{"label": "name", "type": "text", "value": ""}, {"label": "age", "type": "number", "value": ""}, {"label": "Address", "type": "textarea", "value": ""}, {"label": "Cute", "type": "checkbox", "value": "Yes", "checked": true}, {"label": "Gender", "type": "select", "value": "Male", "itemz":["Male", "Female"], "placeholder": "Select"}];
-        // document.querySelector('input-grid').setAttribute('inputs', data);
+      // (function() {
+
+      /* Some things you can do with the element
+       * Setting the input data form Javascript
+        data = [{"label": "name", "type": "text", "value": ""}, {"label": "age", "type": "number", "value": ""}, {"label": "Address", "type": "textarea", "value": ""}, {"label": "Cute", "type": "checkbox", "value": "Yes", "checked": true}, {"label": "Gender", "type": "select", "value": "Male", "items":["Male", "Female"], "placeholder": "Select"}];
         
-        // document.querySelector('input-grid').setInputs(data);
         document.getElementById('grid-container').addEventListener('grid-ready', function() {
           document.querySelector('input-grid').setInputs(data);
         });
+      */
 
-      })();
+      /* Listening to the row-added event (Executed right after a row is added)
+      document.getElementById('grid-container').addEventListener('row-added', function(data) {
+          console.log(data.detail.row);
+        });
+      */
+
+      /* Listening to the row-removed event (Executed right after a row is removed)
+      document.getElementById('grid-container').addEventListener('row-removed', function() {
+          alert("Removed");
+        });
+      */
+
+      // })();
+
+      //Getting the so-far entered data
+      function logData() {
+        console.log(document.querySelector('input-grid').getData());
+      }
     </script>
 
   </body>
