@@ -69,7 +69,7 @@
               <template is="dom-if" if="[[_checkInput(item.type, 'select')]]">
                 <select value="{{item.value::input}}">
                   <option value=""> {{item.placeholder}} </option>
-                  <template is="dom-repeat" items="{{item.itemz}}">
+                  <template is="dom-repeat" items="{{item.items}}">
                     <option value="{{item}}"> {{item}} </option>
                   </template>
                 </select>
@@ -104,10 +104,6 @@
       is: 'input-grid',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'input-grid',
-        },
         inputs: {
           type: Array,
           notify: true
