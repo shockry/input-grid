@@ -63,7 +63,7 @@
               </template>
 
               <template is="dom-if" if="[[_checkInput(input.type, 'checkbox')]]">
-                <input type$="{{input.type}}" value="{{input.value}}" checked$="{{input.checked::change}}">
+                <input type$="{{input.type}}" value="{{input.value}}" checked="{{input.checked::change}}">
               </template>
 
               <template is="dom-if" if="[[_checkInput(input.type, 'select')]]">
@@ -84,6 +84,7 @@
         <!-- Looping over the entered data displaying in rows -->
         <template is="dom-repeat" items="{{data}}" id="data">
           <div class="divTableRow">
+            <!-- For each row of data, loop over the inputs array to know what we have. -->
             <template is="dom-repeat" items="{{inputs}}" as="input">
               <div class="divTableCell">
                 {{_itemValue(item, input.label)}}
@@ -117,7 +118,7 @@
         }
       },
 
-      //Let the user know that the element is ready
+      //Lets the user know that the element is ready
       attached: function() {
         this.fire('grid-ready');
       },
@@ -135,6 +136,7 @@
         return itemType === type;
       },
 
+      //Add entered data to the data array, empty up the inputs and notify the user through an event
       _addRow: function() {
         var toPush = {};
         for (var item of this.inputs) {
@@ -153,9 +155,11 @@
             this.set("inputs."+i+".value", "");
         }
 
+        //Send an event with the new object that has been added to the data array
         this.fire('row-added', {row: toPush});
       },
 
+      //Removes the selected object from the data array
       _removeRow: function(e) {
         var index = this.data.indexOf(e.model.item);
         this.splice('data', index, 1);
@@ -163,18 +167,24 @@
         this.fire('row-removed');
       },
 
+      //Every item in the data array is an object
+      //with its properties named after the labels from the input array
       _itemValue: function(item, property) {
         return item[property];
       },
 
+      //Gets the selected option for a "Select" html element
+      //Based on its provided value property
       _checkSelectedOption: function(item, value) {
         return item === value? true: false;
       },
 
+      //For the outsiders to set the data from the script instead of the attribute
       setInputs: function(inputsArray) {
         this.inputs = inputsArray;
       },
 
+      //For the outsiders to get the current data in the data array
       getData: function() {
         return this.data;
       }
