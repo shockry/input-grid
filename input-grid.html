@@ -51,6 +51,7 @@
 
       <div class="divTableBody">
         <div class="divTableRow">
+          <!-- Looping over the provided input, checking their type and rendering them -->
           <template is="dom-repeat" items="{{inputs}}" id="inputs" as="input">
             <div class="divTableCell">
               <template is="dom-if" if="[[_checkInput(input.type, 'textarea')]]">
@@ -58,18 +59,18 @@
               </template>
 
               <template is="dom-if" if="[[_checkInput(input.type, 'normal')]]">
-                <input type="{{input.type}}" value="{{input.value::input}}">
+                <input type$="{{input.type}}" value="{{input.value::input}}">
               </template>
 
               <template is="dom-if" if="[[_checkInput(input.type, 'checkbox')]]">
-                <input type="{{input.type}}" value="{{input.value}}" checked="{{input.checked::change}}">
+                <input type$="{{input.type}}" value="{{input.value}}" checked$="{{input.checked::change}}">
               </template>
 
               <template is="dom-if" if="[[_checkInput(input.type, 'select')]]">
                 <select value="{{input.value::input}}">
-                  <option value="" selected="[[_checkSelectedOption(item, input.value)]]"> {{input.placeholder}} </option>
+                  <option value="" selected$="[[_checkSelectedOption(item, input.value)]]"> {{input.placeholder}} </option>
                   <template is="dom-repeat" items="{{input.items}}">
-                    <option value="{{item}}" selected="[[_checkSelectedOption(item, input.value)]]"> {{item}} </option>
+                    <option value="{{item}}" selected$="[[_checkSelectedOption(item, input.value)]]"> {{item}} </option>
                   </template>
                 </select>
               </template>
@@ -80,6 +81,7 @@
           </div>
         </div>
 
+        <!-- Looping over the entered data displaying in rows -->
         <template is="dom-repeat" items="{{data}}" id="data">
           <div class="divTableRow">
             <template is="dom-repeat" items="{{inputs}}" as="input">
@@ -103,20 +105,24 @@
       is: 'input-grid',
 
       properties: {
+        // Table header
         inputs: {
           type: Array,
           notify: true
         },
+        // The user-provided data itself
         data: {
           type: Array,
           value: []
         }
       },
 
+      //Let the user know that the element is ready
       attached: function() {
         this.fire('grid-ready');
       },
 
+      // Checks the input type from the input array to decide how to render it
       _checkInput: function(itemType, type) {
         //"Normal" means a text field (with all its variations, like number and date)
         if (type === "normal") {
