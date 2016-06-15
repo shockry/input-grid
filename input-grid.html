@@ -147,11 +147,15 @@
           if (this.inputs[i].type !== 'checkbox')
             this.set("inputs."+i+".value", "");
         }
+
+        this.fire('row-added', {row: toPush});
       },
 
       _removeRow: function(e) {
         var index = this.data.indexOf(e.model.item);
         this.splice('data', index, 1);
+
+        this.fire('row-removed');
       },
 
       _itemValue: function(item, property) {
