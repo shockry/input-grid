@@ -1,38 +1,23 @@
 # \<input-grid\>
 
+_**This element is still at an early stage and not ready for use yet**_
+
 Generate input elements to append data in a grid and quickly get the value of the appended data
 
-## Install the Polymer-CLI
+The idea is that an array with the required inputs is provided and for each input type the approperiate HTML element is rendered along with an "Add" button.
 
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+When the Add button is clicked, the entered values are inserted into an array called "data" that is also rendered as rows along with a remove button.
 
-## Viewing Your Application
+Public functions
 
-```
-$ polymer serve
-```
+* setInputs(), sets the inputs array from Javascript.
+* getData(), Returns the data array
 
-## Building Your Application
+Events
 
-```
-$ polymer build
-```
+* grid-ready, fires when the grid is rendered in the DOM and ready for use
+* row-added, fires when the "Add" button is clicked and the data is inserted in the "data" array, it sends the object that has been inserted that can be accessed with "detail.row" (see demo file)
+* row-removed, fires when an object is removed from the "data" array, when the "Remove" button is clicked.
 
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
 
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+####See the demo file for usage details.
