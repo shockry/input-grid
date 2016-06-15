@@ -135,6 +135,8 @@
         for (var item of this.inputs) {
           if (item.type === 'checkbox') {
             toPush[item.label] = item.checked;
+          } else if (item.type === 'number') {
+            toPush[item.label] = Number(item.value);
           } else {
             toPush[item.label] = item.value;
           }
